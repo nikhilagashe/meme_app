@@ -8,9 +8,18 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
 
-  String? _counter = '1';
+  late AnimationController _controller;
+  bool isLoading = true;
+
+  int _counter = 1;
+
+  void _incrementCounter(){
+    setState(() {
+      _counter++;
+    });
+  }
   String ImgUrl = '';
   @override
   void initState() {
@@ -38,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
               height: 100.0,
             ),
             Text(
-              'Meme #${_counter}',
+              'Meme #$_counter',
               style: TextStyle(
                   fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 2),
             ),
@@ -49,6 +58,14 @@ class _MainScreenState extends State<MainScreen> {
             SizedBox(
               height: 20,
             ),
+            isLoading ? Container(
+              height: 350.0,
+              width: 550.0,
+              child: Center(
+                child: SizedBox(
+                    height:5.0,width: 300.0,child: LinearProgressIndicator()),
+              ),
+            ):
             Container(
               height: 350.0,
               width: 550.0,
@@ -60,6 +77,8 @@ class _MainScreenState extends State<MainScreen> {
             ElevatedButton(
               onPressed: () {
                 UpdateMeme();
+                _incrementCounter();
+                isLoading = false;
               },
               child: Text('Next Meme'),
               style: ElevatedButton.styleFrom(
