@@ -8,12 +8,12 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
+class _MainScreenState extends State<MainScreen>{
 
 
   bool isLoading = true;
 
-  int _counter = 1;
+  int _counter = 0;
 
   void _incrementCounter(){
     setState(() {
@@ -23,13 +23,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
   String ImgUrl = '';
   @override
   void initState() {
-    // TODO: implement initState
+
     UpdateMeme();
   }
 
 
 
   void UpdateMeme() async{
+
     String getUrl = await FetchMeme.fetchNewMeme();
     setState(() {
       ImgUrl = getUrl;
@@ -61,9 +62,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             isLoading ? Container(
               height: 350.0,
               width: 550.0,
-              child: Center(
-                child: SizedBox(
-                    height:5.0,width: 300.0,child: LinearProgressIndicator()),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 200,
+                  ),
+                  Text("Click Next Meme"),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                      height:30.0,width: 30.0,child: CircularProgressIndicator()),
+                ],
               ),
             ):
             Container(
