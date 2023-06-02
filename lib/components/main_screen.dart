@@ -10,7 +10,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
 
-  late AnimationController _controller;
+
   bool isLoading = true;
 
   int _counter = 1;
